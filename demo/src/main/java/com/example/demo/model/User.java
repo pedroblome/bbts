@@ -1,6 +1,5 @@
 package com.example.demo.model;
 
-
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,23 +20,16 @@ import java.util.List;
 @NoArgsConstructor
 public class User implements UserDetails {
 
-
-
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-
     @Column(nullable = false)
-    private Integer id;
+    private Long id;
 
     @Column(unique = true, length = 100, nullable = false)
     private String email;
 
-    @Getter
     @Column(nullable = false)
     private String password;
-
 
     @Column(nullable = false)
     private String fullName;
@@ -49,6 +41,9 @@ public class User implements UserDetails {
     @UpdateTimestamp
     @Column(name = "updated_at")
     private Date updatedAt;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Product> products;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
