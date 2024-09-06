@@ -43,12 +43,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 "/v3/api-docs/**"
         );
 
-        boolean isPublic = publicUrls.stream()
+
+        return publicUrls.stream()
                 .anyMatch(publicUrl -> new AntPathMatcher().match(publicUrl, requestPath));
-
-        System.out.println("Request path: " + requestPath + ", isPublic: " + isPublic);
-
-        return isPublic;
     }
 
 
