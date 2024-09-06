@@ -5,10 +5,9 @@ import com.example.demo.model.Product;
 import com.example.demo.model.dto.ProductDto;
 import com.example.demo.repository.ProductRepository;
 import com.example.demo.service.ProductCrudService;
+import lombok.Getter;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/product")
@@ -22,8 +21,16 @@ public class ProductCrudController {
     }
 
     @PostMapping
-    public ResponseEntity<?> createProduct(ProductDto productDto) {
+    public ResponseEntity<?> createProduct(@RequestBody ProductDto productDto) {
+        System.out.println("create Product");
+
         return ResponseEntity.ok().body(productCrudService.createProduct(productDto));
+    }
+
+    @GetMapping("/test")
+    public ResponseEntity<?>  retornoTeste() {
+        System.out.println("testando imprimir do retornoTeste");
+        return ResponseEntity.ok("saida ok");
     }
 
 

@@ -31,8 +31,9 @@ public class ProductCrudService {
         Optional<User> user = userRepository.findById(productDto.getUserId());
 
         Product product = productMapper.toEntity(productDto, user);
-
+        System.out.println("aqui");
         return productRepository.save(product);
+
     }
 
 }

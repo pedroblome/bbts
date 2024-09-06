@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 @Table(name = "products")
@@ -21,7 +22,6 @@ public class Product {
     private String name;
     private String description;
     private Double price;
-    private byte[] images;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
