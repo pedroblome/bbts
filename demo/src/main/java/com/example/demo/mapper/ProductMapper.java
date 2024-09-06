@@ -18,6 +18,7 @@ public class ProductMapper {
         User user = userOptional.orElseThrow(() -> new IllegalArgumentException("User not found"));
 
         Product product = new Product();
+        product.setId(productDto.getId());
         product.setName(productDto.getName());
         product.setDescription(productDto.getDescription());
         product.setPrice(productDto.getPrice());

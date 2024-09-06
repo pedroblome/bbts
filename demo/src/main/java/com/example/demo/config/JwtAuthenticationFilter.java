@@ -80,13 +80,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                     authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                     SecurityContextHolder.getContext().setAuthentication(authToken);
                 } else {
-                    response.sendError(HttpServletResponse.SC_FORBIDDEN, "Invalid JWT token");
-                    return;
+                    response.sendError(HttpServletResponse.SC_FORBIDDEN);
                 }
             }
         } catch (Exception exception) {
             response.sendError(HttpServletResponse.SC_FORBIDDEN, "Error processing JWT token");
-            return;
         }
 
         filterChain.doFilter(request, response);

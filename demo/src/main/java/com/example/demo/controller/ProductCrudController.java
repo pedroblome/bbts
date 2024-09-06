@@ -35,7 +35,8 @@ public class ProductCrudController {
         }
     }
 
-    @GetMapping("/{id}")
+
+    @GetMapping("/user/{id}")
     public ResponseEntity<?> getAllProductsByUser(@PathVariable Long id) {
         try {
             return new ResponseEntity<>(productCrudService.getAllProductsByUserID(id), HttpStatus.OK);
