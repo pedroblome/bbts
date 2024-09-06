@@ -32,13 +32,14 @@ public class ProductMapper {
             return null;
         }
 
-        ProductDto ProductDto = new ProductDto();
-        ProductDto.setName(product.getName());
-        ProductDto.setDescription(product.getDescription());
-        ProductDto.setPrice(product.getPrice());
+        ProductDto productDto = new ProductDto();
+        productDto.setId(product.getId());
+        productDto.setName(product.getName());
+        productDto.setDescription(product.getDescription());
+        productDto.setPrice(product.getPrice());
         //ProductDto.setImages(product.getImages());
-        ProductDto.setUserId(product.getUser().getId());
+        productDto.setUserId(product.getUser().getId());
 
-        return ProductDto;
+        return productDto;
     }
 }

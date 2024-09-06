@@ -11,6 +11,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -27,13 +29,43 @@ public class ProductCrudService {
         this.userRepository = userRepository;
     }
 
-    public Product createProduct(ProductDto productDto) {
+    public ProductDto createProduct(ProductDto productDto) {
         Optional<User> user = userRepository.findById(productDto.getUserId());
 
         Product product = productMapper.toEntity(productDto, user);
-        System.out.println("aqui");
-        return productRepository.save(product);
+        productRepository.save(product);
+
+        return productMapper.toDTO(product);
 
     }
 
+    public List<ProductDto> getAllProducts() {
+        List<ProductDto> productDtoList = new ArrayList<ProductDto>();
+        List<Product> products = productRepository.findAll();
+        for (Product product : products) {
+            productDtoList.add(productMapper.toDTO(product));
+        }
+        return productDtoList;
+    }
+
+    public List<ProductDto> getAllProductsByUserID(Long userId) {
+        List<ProductDto> productDtoList = new ArrayList<ProductDto>();
+        List<Product> products = productRepository.findByUserId(userId);
+        for (Product product : products) {
+            productDtoList.add(productMapper.toDTO(product));
+        }
+        return productDtoList;
+    }
+
+    public ProductDto updateProduct(ProductDto productDto) {
+        Optional<User> user = userRepository.findById(productDto.getUserId());
+        Product product = productMapper.toEntity(productDto, user);
+        productRepository.save(product);
+        return productMapper.toDTO(product);
+
+    }
+
+    public void deleteProduct(Long id) {
+        productRepository.deleteById(id);
+    }
 }
