@@ -14,9 +14,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
+import org.springframework.util.AntPathMatcher;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.List;
 
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
@@ -30,6 +32,25 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         this.jwtService = jwtService;
         this.userDetailsService = userDetailsService;
     }
+
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) {
+        String requestPath = request.getRequestURI();
+
+        List<String> publicUrls = List.of(
+                "/auth/**",
+                "/swagger-ui/**",
+                "/v3/api-docs/**"
+        );
+
+        boolean isPublic = publicUrls.stream()
+                .anyMatch(publicUrl -> new AntPathMatcher().match(publicUrl, requestPath));
+
+        System.out.println("Request path: " + requestPath + ", isPublic: " + isPublic);
+
+        return isPublic;
+    }
+
 
     @Override
     protected void doFilterInternal(
