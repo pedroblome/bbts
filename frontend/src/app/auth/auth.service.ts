@@ -20,15 +20,20 @@ export class AuthService {
     return this.httpClient.post(`${this.baseUrl}/auth/login`, data).pipe(
       tap((result: any) => {
         localStorage.setItem('authToken', result.token);
+        console.log(result.token);
       })
     );
   }
 
   logout() {
-    localStorage.removeItem('authUser');
+    localStorage.removeItem('authToken');
   }
 
   isLoggedIn() {
-    return localStorage.getItem('authUser') !== null;
+    return localStorage.getItem('authToken') !== null;
+  }
+
+  getToken() {
+    return localStorage.getItem('authToken');
   }
 }
