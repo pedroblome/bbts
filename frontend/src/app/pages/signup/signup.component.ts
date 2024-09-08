@@ -21,13 +21,15 @@ export class SignupComponent {
   router = inject(Router);
 
   public signupForm = new FormGroup({
-    fullName: new FormControl('', [Validators.required]),
-    email: new FormControl('', [Validators.required, Validators.email]),
+    name: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required]),
   });
 
   public onSubmit() {
+    console.log('onSubmit');
     if (this.signupForm.valid) {
+      console.log('teste');
       console.log(this.signupForm.value);
       this.authService.signup(this.signupForm.value).subscribe({
         next: (data: any) => {

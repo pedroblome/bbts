@@ -12,13 +12,14 @@ export class AuthService {
   httpClient = inject(HttpClient);
   baseUrl = 'http://localhost:8080';
   signup(data: any) {
+    console.log('stasd');
     return this.httpClient.post(`${this.baseUrl}/auth/signup`, data);
   }
 
   login(data: any) {
     return this.httpClient.post(`${this.baseUrl}/auth/login`, data).pipe(
-      tap((result) => {
-        localStorage.setItem('authUser', JSON.stringify(result));
+      tap((result: any) => {
+        localStorage.setItem('authToken', result.token);
       })
     );
   }
