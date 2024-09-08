@@ -32,7 +32,7 @@ public class User implements UserDetails {
     private String password;
 
     @Column(nullable = false)
-    private String fullName;
+    private String name;
 
     @CreationTimestamp
     @Column(updatable = false, name = "created_at")
