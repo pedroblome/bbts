@@ -1,0 +1,59 @@
+/* Container da lista */
+.product-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+}
+
+/* Estilo para cada cartão de produto */
+.product-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 20px;
+  max-width: 300px;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.product-card:hover {
+  transform: scale(1.05); /* Efeito de hover para realce */
+}
+
+/* Estilo da imagem */
+.product-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+  margin-bottom: 15px;
+}
+
+/* Estilo do texto */
+.product-card p {
+  margin: 5px 0;
+  text-align: center;
+  font-size: 16px;
+}
+
+/* Estilo de preço */
+.product-card p:last-child {
+  font-weight: bold;
+  color: #007bff;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .product-list {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .product-card {
+    max-width: 100%;
+  }
+}

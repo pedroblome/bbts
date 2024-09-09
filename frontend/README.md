@@ -1,27 +1,40 @@
-# Frontend
+# Instruções para Rodar o Frontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.3.
+Este é o frontend de uma aplicação para cadastro de usuários e gerenciamento de produtos.
 
-## Development server
+## Como Executar o Frontend
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+1. **Instale as Dependências**: Antes de rodar a aplicação, é necessário instalar todas as dependências. No diretório do projeto, execute o seguinte comando:
 
-## Code scaffolding
+   ```bash
+   npm install
+   ```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+2. **Inicie o Servidor de Desenvolvimento**: Após a instalação das dependências, inicie o servidor de desenvolvimento com o seguinte comando:
 
-## Build
+   ```bash
+   ng serve
+   ```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+3. **Acesse o Frontend**: O frontend estará disponível na URL padrão [http://localhost:4200](http://localhost:4200).
 
-## Running unit tests
+## Funcionalidades Principais
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### Página Inicial e Login
 
-## Running end-to-end tests
+- Ao acessar a aplicação, você será redirecionado para a rota padrão que é a página de **login**.
+- Nesta página, é possível realizar o cadastro de um novo usuário clicando na opção de **cadastro**.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+### Após o Login
 
-## Further help
+- Uma vez logado, a aplicação carregará os produtos de **todos os usuários**.
+- Os produtos serão exibidos como uma lista onde você poderá visualizar os itens cadastrados por outros usuários.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+### Página Admin
+
+- Ao acessar a página de **Admin**, você verá apenas **seus produtos** cadastrados.
+- Nesta página, é possível excluir qualquer um dos seus produtos cadastrados clicando no botão **Excluir**.
+
+## Notas Adicionais
+
+- Certifique-se de que o backend da aplicação esteja rodando para que o frontend possa carregar os dados corretamente.

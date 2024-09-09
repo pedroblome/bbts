@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { AuthService } from '../../auth/auth.service'; // Importe o AuthService
+import { AuthService } from '../../auth/auth.service';  
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -14,14 +14,12 @@ export class HomeService {
     private authService: AuthService
   ) {}
 
-  // Método para obter todos os produtos
   getAllProducts(): Observable<any> {
     const token = this.authService.getToken();
 
     const headers = new HttpHeaders({
-      Authorization: `Bearer ${token}`, // Adiciona o token no cabeçalho
+      Authorization: `Bearer ${token}`, 
     });
-    console.log(headers);
     return this.httpClient.get(this.apiUrl, { headers });
   }
 }

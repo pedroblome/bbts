@@ -12,7 +12,6 @@ export class AuthService {
   httpClient = inject(HttpClient);
   baseUrl = 'http://localhost:8080';
   signup(data: any) {
-    console.log('stasd');
     return this.httpClient.post(`${this.baseUrl}/auth/signup`, data);
   }
 
@@ -20,7 +19,7 @@ export class AuthService {
     return this.httpClient.post(`${this.baseUrl}/auth/login`, data).pipe(
       tap((result: any) => {
         localStorage.setItem('authToken', result.token);
-        console.log(result.token);
+        localStorage.setItem('userId', result.userId);
       })
     );
   }
@@ -35,5 +34,9 @@ export class AuthService {
 
   getToken() {
     return localStorage.getItem('authToken');
+  }
+
+  getUserId() {
+    return localStorage.getItem('userId');
   }
 }

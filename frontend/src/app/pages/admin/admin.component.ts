@@ -1,26 +1,74 @@
-import { Component, inject } from '@angular/core';
-import { AuthService } from '../../auth/auth.service';
-import { Router } from '@angular/router';
+import { Component } from '@angular/core'; 
+import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../../header/header.component';
+import { AdminService } from './admin.service';
 
 @Component({
   selector: 'app-admin',
   standalone: true,
-  imports: [HeaderComponent],
+  imports: [HeaderComponent, CommonModule],
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.css',
 })
 export class AdminComponent {
-  userEmail = '';
+  products: any[] = [];
+  pagedProducts: any[] = [];
+  errorMessage: string = '';
 
-  authService = inject(AuthService);
-  router = inject(Router);
-  public logout() {
-    this.authService.logout();
-    this.router.navigate(['/login']);
+  currentPage = 1;
+  pageSize = 14;
+  totalPages = 0;
+
+  constructor(private adminService: AdminService) {}
+
+  ngOnInit(): void {
+    this.loadProducts();
   }
 
-  public getMyProducts() {
-    //aqui vai a função que faz um get no enpoint: http://localhost:8080/product/user/{id}
+  loadProducts() {
+    this.adminService.getUserProducts().subscribe(
+      (data) => {
+        this.products = data;
+        console.log(this.products);
+        this.totalPages = Math.ceil(this.products.length / this.pageSize);
+        this.updatePagedProducts();
+      },
+      (error) => {
+        this.errorMessage = 'Erro ao carregar produtos';
+        console.error(error);
+      }
+    );
+  }
+
+  updatePagedProducts() {
+    const startIndex = (this.currentPage - 1) * this.pageSize;
+    const endIndex = startIndex + this.pageSize;
+    this.pagedProducts = this.products.slice(startIndex, endIndex);
+  }
+
+  prevPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+      this.updatePagedProducts();
+    }
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+      this.updatePagedProducts();
+    }
+  }
+
+  deleteProduct(id: number) {
+    this.adminService.deletetUserProduct(id).subscribe(
+      (response) => {
+        console.log('Product deleted successfully');
+        this.loadProducts(); 
+      },
+      (error) => {
+        console.error('Error deleting product:', error);
+      }
+    );
   }
 }
