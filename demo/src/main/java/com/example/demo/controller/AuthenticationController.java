@@ -41,10 +41,12 @@ public class AuthenticationController {
         try {
             User authenticatedUser = authenticationService.authenticate(loginUserDto);
 
+
             String jwtToken = jwtService.generateToken(authenticatedUser);
 
             LoginResponse loginResponse = new LoginResponse();
             loginResponse.setToken(jwtToken);
+            loginResponse.setUserId(authenticatedUser.getId());
 
             return ResponseEntity.ok(loginResponse);
 

@@ -70,11 +70,14 @@ public class ProductCrudController {
         }
     }
 
-    @DeleteMapping()
+    @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteProduct(@PathVariable Long id) {
         try {
-            productCrudService.deleteProduct(id);
-            return ResponseEntity.ok().body("Product id: " + id + " deleted successfully");
+            if(productCrudService.deleteProduct(id)){
+                return ResponseEntity.ok().body("Product id: " + id + " deleted successfully");
+            }
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product id: " + id + " not Found");
+
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body("An error occurred creating product: " + e.getMessage());

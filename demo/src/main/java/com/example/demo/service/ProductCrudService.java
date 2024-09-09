@@ -6,9 +6,7 @@ import com.example.demo.model.Product;
 import com.example.demo.model.User;
 import com.example.demo.model.dto.ProductDto;
 import com.example.demo.repository.ProductRepository;
-import com.example.demo.repository.UserRepository;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import com.example.demo.repository.UserRepository;;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -65,7 +63,12 @@ public class ProductCrudService {
 
     }
 
-    public void deleteProduct(Long id) {
-        productRepository.deleteById(id);
+    public boolean deleteProduct(Long id) {
+        Product product = productRepository.findById(id).orElse(null);
+        if (product != null) {
+            productRepository.delete(product);
+            return true;
+        }
+        return false;
     }
 }
